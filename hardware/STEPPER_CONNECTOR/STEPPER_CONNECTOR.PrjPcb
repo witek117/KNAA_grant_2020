@@ -105,6 +105,87 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=ACIHSMMJ
 
+[Document5]
+DocumentPath=Chineesium.OutJob
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
+[GeneratedDocument1]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\NC Drill\PCB-NonPlated.TXT
+DItemRevisionGUID=
+
+[GeneratedDocument2]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\NC Drill\PCB-Plated.TXT
+DItemRevisionGUID=
+
+[GeneratedDocument3]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\NC Drill\PCB.DRR
+DItemRevisionGUID=
+
+[GeneratedDocument4]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.EXTREP
+DItemRevisionGUID=
+
+[GeneratedDocument5]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GBL
+DItemRevisionGUID=
+
+[GeneratedDocument6]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GBO
+DItemRevisionGUID=
+
+[GeneratedDocument7]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GBP
+DItemRevisionGUID=
+
+[GeneratedDocument8]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GBS
+DItemRevisionGUID=
+
+[GeneratedDocument9]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GM1
+DItemRevisionGUID=
+
+[GeneratedDocument10]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GTL
+DItemRevisionGUID=
+
+[GeneratedDocument11]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GTO
+DItemRevisionGUID=
+
+[GeneratedDocument12]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GTP
+DItemRevisionGUID=
+
+[GeneratedDocument13]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.GTS
+DItemRevisionGUID=
+
+[GeneratedDocument14]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\NC Drill\PCB.LDP
+DItemRevisionGUID=
+
+[GeneratedDocument15]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.REP
+DItemRevisionGUID=
+
+[GeneratedDocument16]
+DocumentPath=./\STEPPER_CONNECTOR_gerber\Gerber\PCB.RUL
+DItemRevisionGUID=
+
 [Configuration1]
 Name=Sources
 ParameterCount=0
@@ -714,6 +795,36 @@ OutputName11=Specctra Design PCB
 OutputDocumentPath11=
 OutputVariantName11=
 OutputDefault11=0
+OutputType12=Ansoft Neutral
+OutputName12=Ansoft Neutral (AutoPCB)
+OutputDocumentPath12=
+OutputVariantName12=
+OutputDefault12=0
+OutputType13=HyperLynx
+OutputName13=HyperLynx (AutoPCB)
+OutputDocumentPath13=
+OutputVariantName13=
+OutputDefault13=0
+OutputType14=Orcad v7 Capture Design
+OutputName14=Orcad v7 Capture Design (AutoSCH)
+OutputDocumentPath14=
+OutputVariantName14=
+OutputDefault14=0
+OutputType15=P-CAD ASCII
+OutputName15=P-CAD ASCII (AutoPCB)
+OutputDocumentPath15=
+OutputVariantName15=
+OutputDefault15=0
+OutputType16=P-CAD V16 Schematic Design
+OutputName16=P-CAD V16 Schematic Design (AutoSCH)
+OutputDocumentPath16=
+OutputVariantName16=
+OutputDefault16=0
+OutputType17=SiSoft
+OutputName17=SiSoft (AutoPCB)
+OutputDocumentPath17=
+OutputVariantName17=
+OutputDefault17=0
 
 [OutputGroup10]
 Name=PostProcess Outputs
