@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [TMC_CARD.PcbDoc]
+   Generated File[TMC_CARD-Plated.TXT]
+   Generated File[TMC_CARD.LDP]
+   Generated File[TMC_CARD.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 17:41:42 On 14.12.2020

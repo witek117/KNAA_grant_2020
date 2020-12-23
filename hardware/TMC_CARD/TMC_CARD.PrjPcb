@@ -122,8 +122,81 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
+[Document6]
+DocumentPath=Chineesium.OutJob
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
 [GeneratedDocument1]
-DocumentPath=Project Outputs for TMC_CARD\Design Rule Check - TMC_CARD.html
+DocumentPath=./\TMC_CARD_gerber\NC Drill\TMC_CARD-Plated.TXT
+DItemRevisionGUID=
+
+[GeneratedDocument2]
+DocumentPath=./\TMC_CARD_gerber\NC Drill\TMC_CARD.DRR
+DItemRevisionGUID=
+
+[GeneratedDocument3]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.EXTREP
+DItemRevisionGUID=
+
+[GeneratedDocument4]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GBL
+DItemRevisionGUID=
+
+[GeneratedDocument5]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GBO
+DItemRevisionGUID=
+
+[GeneratedDocument6]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GBP
+DItemRevisionGUID=
+
+[GeneratedDocument7]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GBS
+DItemRevisionGUID=
+
+[GeneratedDocument8]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GM1
+DItemRevisionGUID=
+
+[GeneratedDocument9]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GTL
+DItemRevisionGUID=
+
+[GeneratedDocument10]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GTO
+DItemRevisionGUID=
+
+[GeneratedDocument11]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GTP
+DItemRevisionGUID=
+
+[GeneratedDocument12]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GTS
+DItemRevisionGUID=
+
+[GeneratedDocument13]
+DocumentPath=./\TMC_CARD_gerber\NC Drill\TMC_CARD.LDP
+DItemRevisionGUID=
+
+[GeneratedDocument14]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.REP
+DItemRevisionGUID=
+
+[GeneratedDocument15]
+DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.RUL
 DItemRevisionGUID=
 
 [Configuration1]
@@ -745,6 +818,36 @@ OutputName11=Specctra Design PCB
 OutputDocumentPath11=
 OutputVariantName11=
 OutputDefault11=0
+OutputType12=Ansoft Neutral
+OutputName12=Ansoft Neutral (AutoPCB)
+OutputDocumentPath12=
+OutputVariantName12=
+OutputDefault12=0
+OutputType13=HyperLynx
+OutputName13=HyperLynx (AutoPCB)
+OutputDocumentPath13=
+OutputVariantName13=
+OutputDefault13=0
+OutputType14=Orcad v7 Capture Design
+OutputName14=Orcad v7 Capture Design (AutoSCH)
+OutputDocumentPath14=
+OutputVariantName14=
+OutputDefault14=0
+OutputType15=P-CAD ASCII
+OutputName15=P-CAD ASCII (AutoPCB)
+OutputDocumentPath15=
+OutputVariantName15=
+OutputDefault15=0
+OutputType16=P-CAD V16 Schematic Design
+OutputName16=P-CAD V16 Schematic Design (AutoSCH)
+OutputDocumentPath16=
+OutputVariantName16=
+OutputDefault16=0
+OutputType17=SiSoft
+OutputName17=SiSoft (AutoPCB)
+OutputDocumentPath17=
+OutputVariantName17=
+OutputDefault17=0
 
 [OutputGroup10]
 Name=PostProcess Outputs

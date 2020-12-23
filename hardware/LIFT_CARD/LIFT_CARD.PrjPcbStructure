@@ -1,0 +1,4 @@
+Record=TopLevelDocument|FileName=LIFT_CARD.SchDoc|SheetNumber= 
+Record=SheetSymbol|SourceDocument=LIFT_CARD.SchDoc|Designator=Designator|SchDesignator=Designator|FileName=RS485_FD.SchDoc|SheetNumber= |SymbolType=Normal|RawFileName=RS485_FD.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=LIFT_CARD.SchDoc|Designator=Designator|SchDesignator=Designator|FileName=RS485_FD.SchDoc|SheetNumber= |SymbolType=Normal|RawFileName=RS485_FD.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=RS485_FD.SchDoc|Designator=Designator|SchDesignator=Designator|FileName=protection.SchDoc|SheetNumber= |SymbolType=Normal|RawFileName=protection.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 

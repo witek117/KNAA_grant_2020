@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [LIFT_DRIVER.PcbDoc]
+   Generated File[LIFT_DRIVER-Plated.TXT]
+   Generated File[LIFT_DRIVER.LDP]
+   Generated File[LIFT_DRIVER.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 17:42:45 On 14.12.2020
