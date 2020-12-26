@@ -30,7 +30,7 @@ ReportSuppressedErrorsInMessages=0
 FSMCodingStyle=eFMSDropDownList_OneProcess
 FSMEncodingStyle=eFMSDropDownList_OneHot
 IsProjectConflictPreventionWarningsEnabled=1
-OutputPath=
+OutputPath=Project Outputs for LIFT_CARD
 LogFolderPath=
 ManagedProjectGUID=
 IncludeDesignInRelease=0
@@ -141,63 +141,101 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
+[Document7]
+DocumentPath=LIFT_CARD.OutJob
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
+[Document8]
+DocumentPath=Simulation\project_sim_config.simcfg
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
 [GeneratedDocument1]
-DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD-Plated.TXT
+DocumentPath=Project Outputs for LIFT_CARD\Design Rule Check - LIFT_CARD.html
 DItemRevisionGUID=
 
 [GeneratedDocument2]
-DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD.DRR
+DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD-Plated.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument3]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.EXTREP
+DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument4]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBL
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument5]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBO
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument6]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBP
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBO
 DItemRevisionGUID=
 
 [GeneratedDocument7]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBS
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBP
 DItemRevisionGUID=
 
 [GeneratedDocument8]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GM1
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBS
 DItemRevisionGUID=
 
 [GeneratedDocument9]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTL
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GM1
 DItemRevisionGUID=
 
 [GeneratedDocument10]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTO
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument11]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTP
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument12]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTS
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument13]
-DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD.LDP
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument14]
-DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.REP
+DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument15]
+DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.REP
+DItemRevisionGUID=
+
+[GeneratedDocument16]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.RUL
 DItemRevisionGUID=
 
@@ -210,6 +248,52 @@ Variant=[No Variations]
 OutputJobsCount=0
 ContentTypeGUID=CB6F2064-E317-11DF-B822-12313F0024A2
 ConfigurationType=Source
+
+[Generic_SmartPDF]
+AutoOpenFile=-1
+AutoOpenOutJob=-1
+
+[Generic_SmartPDFSettings]
+ProjectMode=-1
+ZoomPrecision=50
+AddNetsInformation=-1
+AddNetPins=-1
+AddNetNetLabels=-1
+AddNetPorts=-1
+ShowComponentParameters=-1
+GlobalBookmarks=0
+ExportBOM=-1
+TemplateFilename=Board Stack Report.XLT
+TemplateStoreRelative=-1
+PCB_PrintColor=1
+SCH_PrintColor=0
+PrintQuality=-3
+SCH_ShowNoErc=-1
+SCH_ShowParameter=-1
+SCH_ShowProbes=-1
+SCH_ShowBlankets=-1
+SCH_NoERCSymbolsToShow="Thin Cross","Thick Cross","Small Cross",Checkbox,Triangle
+SCH_ShowNote=-1
+SCH_ShowNoteCollapsed=-1
+SCH_ExpandLogicalToPhysical=-1
+SCH_VariantName=[No Variations]
+SCH_ExpandComponentDesignators=-1
+SCH_ExpandNetlabels=0
+SCH_ExpandPorts=0
+SCH_ExpandSheetNumber=0
+SCH_ExpandDocumentNumber=0
+SCH_HasExpandLogicalToPhysicalSheets=-1
+SaveSettingsToOutJob=-1
+
+[Generic_EDE]
+OutputDir=Project Outputs for LIFT_CARD
+
+[Generic_SimulationProfiles]
+ActiveProfile=VQUNTFAU
+ProfileId0=VQUNTFAU
+ProfileName0=Mixed Sim Configuration
+OutputType0=AdvSimNetlist
+ConfigParameters0=OP_Analysis=False|TRAN_Analysis=True|DC_Analysis=False|AC_Analysis=False|TF_Analysis=False|PZ_Analysis=False|Noise_Analysis=False|TRAN_FourierAnalysis=False|TempSweep_Analysis=False|ParamSweep_Analysis=False|MonteCarlo_Analysis=False|TF_Enabled=False|TF_Source=|TF_Reference=0|PZ_Enabled=False|PZ_Node1=|PZ_Node2=0|PZ_Node3=|PZ_Node4=0|PZ_AnalType=PZ|PZ_TfType=VOL|AnalysesDataSavedIndex=4|DC_PrimarySource=|DC_PrimaryStart=|DC_PrimaryStop=|DC_PrimaryStep=|DC_EnableSecondary=False|DC_SecondarySource=|DC_SecondaryStart=|DC_SecondaryStop=|DC_SecondaryStep=|AC_StartFrequency=1K|AC_StopFrequency=1G|AC_TestPoints=10|AC_SweepType=DEC|Noise_Enabled=False|Noise_Source=|Noise_Output=|Noise_Reference=0|Noise_Start=1K|Noise_Stop=1G|Noise_TestPoints=10|Noise_PointsPerSummary=0|Noise_SweepType=DEC|TRAN_StartTime=0|TRAN_StopTime=1m|TRAN_StepTime=10u|TRAN_MaxStepTime=10u|TRAN_UseInitialConditions=False|TRAN_FourierEnabled=False|TRAN_FourierFundFreq=10|TRAN_FourierNumHarmonics=10|TRAN_AlwaysSetDefaults=False|TempSweep_Start=-10|TempSweep_Stop=60|TempSweep_Step=10|ParamSweep_Parameter1=|ParamSweep_Type1=LIN|ParamSweep_Start1=|ParamSweep_Stop1=|ParamSweep_Step1=|ParamSweep_SweepType1=False|ParamSweep_SecondaryEnabled=False|ParamSweep_Parameter2=|ParamSweep_Type2=LIN|ParamSweep_Start2=|ParamSweep_Stop2=|ParamSweep_Step2=|ParamSweep_SweepType2=False|MonteCarlo_NumberOfRuns=10|MonteCarlo_DistributionType=GAUSS|MonteCarlo_Seed=-1|MonteCarlo_ResistorTolerance=10%|MonteCarlo_CapacitorTolerance=10%|OldCfgLoaded=True|SimViewSetup=ShowActiveSignalsProbes|OPTION_Method=Trapezoidal|OPTION_DVCC=5|OPTION_DVDD=15|SheetsToNetlist=0
 
 [OutputGroup1]
 Name=Netlist Outputs
@@ -342,6 +426,8 @@ OutputName1=Mixed Sim
 OutputDocumentPath1=
 OutputVariantName1=
 OutputDefault1=0
+Configuration1_Name1=OutputConfigurationParameter1
+Configuration1_Item1=OP_Analysis=False|TRAN_Analysis=True|DC_Analysis=False|AC_Analysis=False|TF_Analysis=False|PZ_Analysis=False|Noise_Analysis=False|TRAN_FourierAnalysis=False|TempSweep_Analysis=False|ParamSweep_Analysis=False|MonteCarlo_Analysis=False|TF_Enabled=False|TF_Source= |TF_Reference=0|PZ_Enabled=False|PZ_Node1= |PZ_Node2=0|PZ_Node3= |PZ_Node4=0|PZ_AnalType=PZ|PZ_TfType=VOL|AnalysesDataSavedIndex=4|DC_PrimarySource= |DC_PrimaryStart= |DC_PrimaryStop= |DC_PrimaryStep= |DC_EnableSecondary=False|DC_SecondarySource= |DC_SecondaryStart= |DC_SecondaryStop= |DC_SecondaryStep= |AC_StartFrequency=1K|AC_StopFrequency=1G|AC_TestPoints=10|AC_SweepType=DEC|Noise_Enabled=False|Noise_Source= |Noise_Output= |Noise_Reference=0|Noise_Start=1K|Noise_Stop=1G|Noise_TestPoints=10|Noise_PointsPerSummary=0|Noise_SweepType=DEC|TRAN_StartTime=0|TRAN_StopTime=1m|TRAN_StepTime=10u|TRAN_MaxStepTime=10u|TRAN_UseInitialConditions=False|TRAN_FourierEnabled=False|TRAN_FourierFundFreq=10|TRAN_FourierNumHarmonics=10|TRAN_AlwaysSetDefaults=False|TempSweep_Start=-10|TempSweep_Stop=60|TempSweep_Step=10|ParamSweep_Parameter1= |ParamSweep_Type1=LIN|ParamSweep_Start1= |ParamSweep_Stop1= |ParamSweep_Step1= |ParamSweep_SweepType1=False|ParamSweep_SecondaryEnabled=False|ParamSweep_Parameter2= |ParamSweep_Type2=LIN|ParamSweep_Start2= |ParamSweep_Stop2= |ParamSweep_Step2= |ParamSweep_SweepType2=False|MonteCarlo_NumberOfRuns=10|MonteCarlo_DistributionType=GAUSS|MonteCarlo_Seed=-1|MonteCarlo_ResistorTolerance=10%|MonteCarlo_CapacitorTolerance=10%|OldCfgLoaded=True|SimViewSetup=ShowActiveSignalsProbes|OPTION_Method=Trapezoidal|OPTION_DVCC=5|OPTION_DVDD=15|SheetsToNetlist=0|Record=AdvSimNetlistView|SimulationName=Mixed Sim Configuration|ProfileId=VQUNTFAU
 OutputType2=SIMetrixSimulation
 OutputName2=SIMetrix
 OutputDocumentPath2=

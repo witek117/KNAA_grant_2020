@@ -2,90 +2,6 @@
 FileName = LIFT_CARD.GBR
 AutoAperture = True
 *************************************************************
-Generating : Top Overlay
-      File : LIFT_CARD.GTO
-
-    Adding Layer      : Top Overlay
-
-
-Used DCodes :
-    D10
-    D11
-    D12
-    D13
-    D14
-    D15
-    D16
-*************************************************************
-
-*************************************************************
-Generating : Bottom Layer
-      File : LIFT_CARD.GBL
-
-    Adding Layer      : Bottom Layer
-
-    Adding Layer      : Multi-Layer
-
-
-Used DCodes :
-    D33
-    D34
-    D35
-    D36
-    D37
-    D38
-    D39
-    D40
-*************************************************************
-
-*************************************************************
-Generating : Top Layer
-      File : LIFT_CARD.GTL
-
-    Adding Layer      : Top Layer
-
-    Adding Layer      : Multi-Layer
-
-
-Used DCodes :
-    D11
-    D17
-    D18
-    D19
-    D20
-    D21
-    D22
-    D33
-    D34
-    D35
-    D36
-    D37
-    D38
-    D39
-    D40
-*************************************************************
-
-*************************************************************
-Generating : Top Paste
-      File : LIFT_CARD.GTP
-
-    Adding Layer      : Top Paste
-
-    Adding Layer      : Top Layer
-
-    Adding Layer      : Multi-Layer
-
-
-Used DCodes :
-    D17
-    D18
-    D19
-    D20
-    D21
-    D22
-*************************************************************
-
-*************************************************************
 Generating : Mechanical 1
       File : LIFT_CARD.GM1
 
@@ -108,7 +24,6 @@ Generating : Top Solder
 
 
 Used DCodes :
-    D23
     D24
     D25
     D26
@@ -119,6 +34,26 @@ Used DCodes :
     D31
     D32
     D33
+    D34
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : LIFT_CARD.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D30
+    D31
+    D32
+    D33
+    D34
 *************************************************************
 
 *************************************************************
@@ -129,7 +64,34 @@ Generating : Bottom Overlay
 
 
 Used DCodes :
-    D16
+    D17
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : LIFT_CARD.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D11
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
 *************************************************************
 
 *************************************************************
@@ -147,10 +109,8 @@ Used DCodes :
 *************************************************************
 
 *************************************************************
-Generating : Bottom Solder
-      File : LIFT_CARD.GBS
-
-    Adding Layer      : Bottom Solder
+Generating : Bottom Layer
+      File : LIFT_CARD.GBL
 
     Adding Layer      : Bottom Layer
 
@@ -158,10 +118,51 @@ Generating : Bottom Solder
 
 
 Used DCodes :
-    D29
-    D30
-    D31
-    D32
-    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : LIFT_CARD.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : LIFT_CARD.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
 *************************************************************
 
