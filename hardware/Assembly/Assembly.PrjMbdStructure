@@ -1,0 +1,12 @@
+Record=DiagramHierarchy|SourceDocument=Assembly.MbsDoc|Kind=Multi-board Schematic Module|Designator=3|Source=..\LIFT_CARD\LIFT_CARD.PrjPcb
+Record=SubProject|SourceDocument=Assembly.MbsDoc|ProjectPath=..\LIFT_CARD\LIFT_CARD.PrjPcb
+Record=DiagramHierarchy|SourceDocument=Assembly.MbsDoc|Kind=Multi-board Schematic Module|Designator=2|Source=..\LIFT_CARD\LIFT_CARD.PrjPcb
+Record=SubProject|SourceDocument=Assembly.MbsDoc|ProjectPath=..\LIFT_CARD\LIFT_CARD.PrjPcb
+Record=DiagramHierarchy|SourceDocument=Assembly.MbsDoc|Kind=Multi-board Schematic Module|Designator=1|Source=..\MAIN\MAIN.PrjPcb
+Record=SubProject|SourceDocument=Assembly.MbsDoc|ProjectPath=..\MAIN\MAIN.PrjPcb
+Record=DiagramHierarchy|SourceDocument=Assembly.MbsDoc|Kind=Multi-board Schematic Module|Designator=6|Source=..\TMC_CARD\TMC_CARD.PrjPcb
+Record=SubProject|SourceDocument=Assembly.MbsDoc|ProjectPath=..\TMC_CARD\TMC_CARD.PrjPcb
+Record=DiagramHierarchy|SourceDocument=Assembly.MbsDoc|Kind=Multi-board Schematic Module|Designator=4|Source=..\TMC_CARD\TMC_CARD.PrjPcb
+Record=SubProject|SourceDocument=Assembly.MbsDoc|ProjectPath=..\TMC_CARD\TMC_CARD.PrjPcb
+Record=DiagramHierarchy|SourceDocument=Assembly.MbsDoc|Kind=Multi-board Schematic Module|Designator=5|Source=..\TMC_CARD\TMC_CARD.PrjPcb
+Record=SubProject|SourceDocument=Assembly.MbsDoc|ProjectPath=..\TMC_CARD\TMC_CARD.PrjPcb

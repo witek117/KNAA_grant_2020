@@ -140,66 +140,62 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for TMC_CARD\Design Rule Check - TMC_CARD.html
-DItemRevisionGUID=
-
-[GeneratedDocument2]
 DocumentPath=./\TMC_CARD_gerber\NC Drill\TMC_CARD-Plated.TXT
 DItemRevisionGUID=
 
-[GeneratedDocument3]
+[GeneratedDocument2]
 DocumentPath=./\TMC_CARD_gerber\NC Drill\TMC_CARD.DRR
 DItemRevisionGUID=
 
-[GeneratedDocument4]
+[GeneratedDocument3]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.EXTREP
 DItemRevisionGUID=
 
-[GeneratedDocument5]
+[GeneratedDocument4]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GBL
 DItemRevisionGUID=
 
-[GeneratedDocument6]
+[GeneratedDocument5]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GBO
 DItemRevisionGUID=
 
-[GeneratedDocument7]
+[GeneratedDocument6]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GBP
 DItemRevisionGUID=
 
-[GeneratedDocument8]
+[GeneratedDocument7]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GBS
 DItemRevisionGUID=
 
-[GeneratedDocument9]
+[GeneratedDocument8]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GM1
 DItemRevisionGUID=
 
-[GeneratedDocument10]
+[GeneratedDocument9]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GTL
 DItemRevisionGUID=
 
-[GeneratedDocument11]
+[GeneratedDocument10]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GTO
 DItemRevisionGUID=
 
-[GeneratedDocument12]
+[GeneratedDocument11]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GTP
 DItemRevisionGUID=
 
-[GeneratedDocument13]
+[GeneratedDocument12]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.GTS
 DItemRevisionGUID=
 
-[GeneratedDocument14]
+[GeneratedDocument13]
 DocumentPath=./\TMC_CARD_gerber\NC Drill\TMC_CARD.LDP
 DItemRevisionGUID=
 
-[GeneratedDocument15]
+[GeneratedDocument14]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.REP
 DItemRevisionGUID=
 
-[GeneratedDocument16]
+[GeneratedDocument15]
 DocumentPath=./\TMC_CARD_gerber\Gerber\TMC_CARD.RUL
 DItemRevisionGUID=
 

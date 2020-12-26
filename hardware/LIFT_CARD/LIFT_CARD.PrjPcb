@@ -157,66 +157,62 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for LIFT_CARD\Design Rule Check - LIFT_CARD.html
-DItemRevisionGUID=
-
-[GeneratedDocument2]
 DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD-Plated.TXT
 DItemRevisionGUID=
 
-[GeneratedDocument3]
+[GeneratedDocument2]
 DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD.DRR
 DItemRevisionGUID=
 
-[GeneratedDocument4]
+[GeneratedDocument3]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.EXTREP
 DItemRevisionGUID=
 
-[GeneratedDocument5]
+[GeneratedDocument4]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBL
 DItemRevisionGUID=
 
-[GeneratedDocument6]
+[GeneratedDocument5]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBO
 DItemRevisionGUID=
 
-[GeneratedDocument7]
+[GeneratedDocument6]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBP
 DItemRevisionGUID=
 
-[GeneratedDocument8]
+[GeneratedDocument7]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GBS
 DItemRevisionGUID=
 
-[GeneratedDocument9]
+[GeneratedDocument8]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GM1
 DItemRevisionGUID=
 
-[GeneratedDocument10]
+[GeneratedDocument9]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTL
 DItemRevisionGUID=
 
-[GeneratedDocument11]
+[GeneratedDocument10]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTO
 DItemRevisionGUID=
 
-[GeneratedDocument12]
+[GeneratedDocument11]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTP
 DItemRevisionGUID=
 
-[GeneratedDocument13]
+[GeneratedDocument12]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.GTS
 DItemRevisionGUID=
 
-[GeneratedDocument14]
+[GeneratedDocument13]
 DocumentPath=./\LIFT_CARD_gerber\NC Drill\LIFT_CARD.LDP
 DItemRevisionGUID=
 
-[GeneratedDocument15]
+[GeneratedDocument14]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.REP
 DItemRevisionGUID=
 
-[GeneratedDocument16]
+[GeneratedDocument15]
 DocumentPath=./\LIFT_CARD_gerber\Gerber\LIFT_CARD.RUL
 DItemRevisionGUID=
 
