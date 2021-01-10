@@ -1,0 +1,15 @@
+.idea
+cmake-build-debug
+cmake-build-default
+cmake-build-release
+
+
+# normally not ignored
+/targets/lift_driver/Drivers/
+/targets/lift_driver/Inc/
+/targets/lift_driver/Src/
+/targets/lift_driver/.mxproject
+/targets/lift_driver/l4.ioc
+/targets/lift_driver/Makefile
+/targets/lift_driver/startup_stm32l476xx.s
+/targets/lift_driver/STM32L476RGTx_FLASH.ld
