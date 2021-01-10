@@ -1,0 +1,4 @@
+Record=TopLevelDocument|FileName=TMC_CARD.SchDoc|SheetNumber= 
+Record=SheetSymbol|SourceDocument=TMC_CARD.SchDoc|Designator=Designator|SchDesignator=Designator|FileName=TMC2209.SchDoc|SheetNumber= |SymbolType=Normal|RawFileName=TMC2209.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=TMC_CARD.SchDoc|Designator=Designator|SchDesignator=Designator|FileName=LM2596.SchDoc|SheetNumber= |SymbolType=Normal|RawFileName=LM2596.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=TMC_CARD.SchDoc|Designator=Designator|SchDesignator=Designator|FileName=TMC2209.SchDoc|SheetNumber= |SymbolType=Normal|RawFileName=TMC2209.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
