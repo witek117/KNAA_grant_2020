@@ -1,19 +1,9 @@
-set(NAME core)
-
-file(GLOB_RECURSE SOURCES
-	"*.h"
-	"*.c"
-	"*.cpp"
-	"*.hpp"
-)
-
-add_library(${NAME}
-	${SOURCES})
-
-target_link_libraries(${NAME}
-	msftgsl
-)
-
-target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-
 add_subdirectory(external)
+add_subdirectory(VL53L0X)
+#add_subdirectory(TMCStepper)
+add_subdirectory(TMC)
+
+add_library(core core.cpp)
+
+target_link_libraries(core PUBLIC msftgsl VL53L0X TMC)
+target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
