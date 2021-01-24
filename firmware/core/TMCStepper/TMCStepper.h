@@ -10,7 +10,7 @@
 	#include <Arduino.h>
 #endif
 
-#include <Stream.h>
+#include <Stream.hpp>
 //#include <SPI.h>
 
 #include <cstdint>

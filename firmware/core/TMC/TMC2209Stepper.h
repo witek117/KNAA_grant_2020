@@ -1,7 +1,7 @@
 #pragma once
 #include "TMCStepper.h"
 #include "TMC2208Stepper.h"
-#include "Stream.h"
+#include "Stream.hpp"
 #include "SERIAL_SWITCH.h"
 #include "TMC2209_bitfields.h"
 

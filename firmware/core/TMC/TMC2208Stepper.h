@@ -1,6 +1,6 @@
 #pragma once
 #include "TMCStepper.h"
-#include "Stream.h"
+#include "Stream.hpp"
 #include "SERIAL_SWITCH.h"
 #include "TMC2208_bitfields.h"
 
@@ -168,8 +168,8 @@ public:
     uint16_t bytesWritten = 0;
     float Rsense = 0.11;
     bool CRCerror = false;
-protected:
 
+protected:
     TMC2208_n::GCONF_t GCONF_register = TMC2208_n::GCONF_t {{.sr=0}};
     TMC2208_n::VACTUAL_t VACTUAL_register = TMC2208_n::VACTUAL_t {.sr=0};
     TMC2208_n::CHOPCONF_t CHOPCONF_register = TMC2208_n::CHOPCONF_t {{.sr=0}};

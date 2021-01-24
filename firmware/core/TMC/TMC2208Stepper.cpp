@@ -1,6 +1,6 @@
 #include "TMC2208Stepper.h"
 
-#include "Stream.h"
+#include "Stream.hpp"
 #include "HAL.hpp"
 #include <cstdint>
 

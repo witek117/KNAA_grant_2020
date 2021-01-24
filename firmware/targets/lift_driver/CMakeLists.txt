@@ -18,6 +18,8 @@ file(GLOB_RECURSE SOURCES_AUTO
 		Src/*.cpp
 		Core/Src/*.c
 		Core/Src/*.cpp
+		HAL/*.c
+		HAL/*.cpp
 		*.s
 )
 
@@ -43,6 +45,7 @@ target_link_libraries(${NAME}
 
 target_include_directories(${NAME} PUBLIC
 		${CMAKE_CURRENT_SOURCE_DIR}/../../core
+		${CMAKE_CURRENT_SOURCE_DIR}/HAL
 		)
 
 add_custom_command(TARGET ${NAME}
