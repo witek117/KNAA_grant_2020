@@ -336,4 +336,120 @@ uint8_t TMC2208Stepper::pwm_grad_auto() {
     return r.pwm_grad_auto;
 }
 
+#define SET_REG(SETTING) CHOPCONF_register.SETTING = B; write(CHOPCONF_register.address, CHOPCONF_register.sr)
+void TMC2208Stepper::CHOPCONF(uint32_t input) {
+    CHOPCONF_register.sr = input;
+    write(CHOPCONF_register.address, CHOPCONF_register.sr);
+}
+uint32_t TMC2208Stepper::CHOPCONF() {
+    return read(CHOPCONF_register.address);
+}
 
+void TMC2208Stepper::toff	( uint8_t  B )	{ SET_REG(toff); 	}
+void TMC2208Stepper::hstrt	( uint8_t  B )	{ SET_REG(hstrt); 	}
+void TMC2208Stepper::hend	( uint8_t  B )	{ SET_REG(hend); 	}
+void TMC2208Stepper::tbl	( uint8_t  B )	{ SET_REG(tbl); 	}
+void TMC2208Stepper::vsense	( bool     B )	{ SET_REG(vsense); 	}
+void TMC2208Stepper::mres	( uint8_t  B )	{ SET_REG(mres); 	}
+void TMC2208Stepper::intpol	( bool     B )	{ SET_REG(intpol); 	}
+void TMC2208Stepper::dedge	( bool     B )	{ SET_REG(dedge); 	}
+void TMC2208Stepper::diss2g	( bool     B )	{ SET_REG(diss2g); 	}
+void TMC2208Stepper::diss2vs( bool     B )	{ SET_REG(diss2vs); }
+
+uint8_t TMC2208Stepper::toff()		{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.toff; 	}
+uint8_t TMC2208Stepper::hstrt()		{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.hstrt; 	}
+uint8_t TMC2208Stepper::hend()		{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.hend; 	}
+uint8_t TMC2208Stepper::tbl()		{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.tbl;	 	}
+bool 	TMC2208Stepper::vsense()	{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.vsense; 	}
+uint8_t TMC2208Stepper::mres()		{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.mres; 	}
+bool 	TMC2208Stepper::intpol()	{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.intpol; 	}
+bool 	TMC2208Stepper::dedge()		{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.dedge; 	}
+bool 	TMC2208Stepper::diss2g()	{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.diss2g; 	}
+bool 	TMC2208Stepper::diss2vs()	{ TMC2208_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.diss2vs;  }
+#undef SET_REG
+
+
+#define SET_REG(SETTING) GCONF_register.SETTING = B; write(GCONF_register.address, GCONF_register.sr)
+uint32_t TMC2208Stepper::GCONF() {
+    return read(GCONF_register.address);
+}
+void TMC2208Stepper::GCONF(uint32_t input) {
+    GCONF_register.sr = input;
+    write(GCONF_register.address, GCONF_register.sr);
+}
+
+void TMC2208Stepper::I_scale_analog(bool B)		{ SET_REG(i_scale_analog);	}
+void TMC2208Stepper::internal_Rsense(bool B)	{ SET_REG(internal_rsense);	}
+void TMC2208Stepper::en_spreadCycle(bool B)		{ SET_REG(en_spreadcycle);	}
+void TMC2208Stepper::shaft(bool B) 				{ SET_REG(shaft);			}
+void TMC2208Stepper::index_otpw(bool B)			{ SET_REG(index_otpw);		}
+void TMC2208Stepper::index_step(bool B)			{ SET_REG(index_step);		}
+void TMC2208Stepper::pdn_disable(bool B)		{ SET_REG(pdn_disable);		}
+void TMC2208Stepper::mstep_reg_select(bool B)	{ SET_REG(mstep_reg_select);}
+void TMC2208Stepper::multistep_filt(bool B)		{ SET_REG(multistep_filt);	}
+
+bool TMC2208Stepper::I_scale_analog()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.i_scale_analog;		}
+bool TMC2208Stepper::internal_Rsense()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.internal_rsense;	}
+bool TMC2208Stepper::en_spreadCycle()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.en_spreadcycle;		}
+bool TMC2208Stepper::shaft()			{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.shaft;				}
+bool TMC2208Stepper::index_otpw()		{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.index_otpw;			}
+bool TMC2208Stepper::index_step()		{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.index_step;			}
+bool TMC2208Stepper::pdn_disable()		{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.pdn_disable;		}
+bool TMC2208Stepper::mstep_reg_select()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.mstep_reg_select;	}
+bool TMC2208Stepper::multistep_filt()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.multistep_filt;		}
+#undef SET_REG
+
+
+#define GET_REG(NS, SETTING) NS::DRV_STATUS_t r{0}; r.sr = DRV_STATUS(); return r.SETTING
+
+uint32_t TMC2208Stepper::DRV_STATUS() {
+    return read(TMC2208_n::DRV_STATUS_t::address);
+}
+
+bool 		TMC2208Stepper::otpw()		{ GET_REG(TMC2208_n, otpw); 		}
+bool 		TMC2208Stepper::ot() 		{ GET_REG(TMC2208_n, ot); 	 		}
+bool 		TMC2208Stepper::s2ga() 		{ GET_REG(TMC2208_n, s2ga); 		}
+bool 		TMC2208Stepper::s2gb() 		{ GET_REG(TMC2208_n, s2gb); 		}
+bool 		TMC2208Stepper::s2vsa() 	{ GET_REG(TMC2208_n, s2vsa);		}
+bool 		TMC2208Stepper::s2vsb() 	{ GET_REG(TMC2208_n, s2vsb);		}
+bool 		TMC2208Stepper::ola() 		{ GET_REG(TMC2208_n, ola);  		}
+bool 		TMC2208Stepper::olb() 		{ GET_REG(TMC2208_n, olb);  		}
+bool 		TMC2208Stepper::t120() 		{ GET_REG(TMC2208_n, t120); 		}
+bool 		TMC2208Stepper::t143() 		{ GET_REG(TMC2208_n, t143); 		}
+bool 		TMC2208Stepper::t150() 		{ GET_REG(TMC2208_n, t150); 		}
+bool 		TMC2208Stepper::t157() 		{ GET_REG(TMC2208_n, t157); 		}
+uint16_t 	TMC2208Stepper::cs_actual()	{ GET_REG(TMC2208_n, cs_actual);	}
+bool 		TMC2208Stepper::stealth() 	{ GET_REG(TMC2208_n, stealth);		}
+bool 		TMC2208Stepper::stst() 		{ GET_REG(TMC2208_n, stst); 		}
+#undef GET_REG
+
+
+#define SET_REG(SETTING) PWMCONF_register.SETTING = B; write(PWMCONF_register.address, PWMCONF_register.sr)
+#define GET_REG(SETTING) return PWMCONF_register.SETTING
+uint32_t TMC2208Stepper::PWMCONF() {
+    return read(PWMCONF_register.address);
+}
+void TMC2208Stepper::PWMCONF(uint32_t input) {
+    PWMCONF_register.sr = input;
+    write(PWMCONF_register.address, PWMCONF_register.sr);
+}
+
+void TMC2208Stepper::pwm_ofs		( uint8_t B ) { PWMCONF_register.pwm_ofs = B; write(PWMCONF_register.address, PWMCONF_register.sr); }
+void TMC2208Stepper::pwm_grad		( uint8_t B ) { PWMCONF_register.pwm_grad = B; write(PWMCONF_register.address, PWMCONF_register.sr); }
+void TMC2208Stepper::pwm_freq		( uint8_t B ) { PWMCONF_register.pwm_freq = B; write(PWMCONF_register.address, PWMCONF_register.sr); }
+void TMC2208Stepper::pwm_autoscale	( bool 	  B ) { PWMCONF_register.pwm_autoscale = B; write(PWMCONF_register.address, PWMCONF_register.sr); }
+void TMC2208Stepper::pwm_autograd	( bool    B ) { PWMCONF_register.pwm_autograd = B; write(PWMCONF_register.address, PWMCONF_register.sr); }
+void TMC2208Stepper::freewheel		( uint8_t B ) { PWMCONF_register.freewheel = B; write(PWMCONF_register.address, PWMCONF_register.sr); }
+void TMC2208Stepper::pwm_reg		( uint8_t B ) { PWMCONF_register.pwm_reg = B; write(PWMCONF_register.address, PWMCONF_register.sr); }
+void TMC2208Stepper::pwm_lim		( uint8_t B ) { PWMCONF_register.pwm_lim = B; write(PWMCONF_register.address, PWMCONF_register.sr); }
+
+uint8_t TMC2208Stepper::pwm_ofs()		{ TMC2208_n::PWMCONF_t r{0}; r.sr = PWMCONF(); return r.pwm_ofs;		}
+uint8_t TMC2208Stepper::pwm_grad()		{ TMC2208_n::PWMCONF_t r{0}; r.sr = PWMCONF(); return r.pwm_grad;		}
+uint8_t TMC2208Stepper::pwm_freq()		{ TMC2208_n::PWMCONF_t r{0}; r.sr = PWMCONF(); return r.pwm_freq;		}
+bool 	TMC2208Stepper::pwm_autoscale()	{ TMC2208_n::PWMCONF_t r{0}; r.sr = PWMCONF(); return r.pwm_autoscale;	}
+bool 	TMC2208Stepper::pwm_autograd()	{ TMC2208_n::PWMCONF_t r{0}; r.sr = PWMCONF(); return r.pwm_autograd;	}
+uint8_t TMC2208Stepper::freewheel()		{ TMC2208_n::PWMCONF_t r{0}; r.sr = PWMCONF(); return r.freewheel;		}
+uint8_t TMC2208Stepper::pwm_reg()		{ TMC2208_n::PWMCONF_t r{0}; r.sr = PWMCONF(); return r.pwm_reg;		}
+uint8_t TMC2208Stepper::pwm_lim()		{ TMC2208_n::PWMCONF_t r{0}; r.sr = PWMCONF(); return r.pwm_lim;		}
+#undef SET_REG
+#undef GET_REG
