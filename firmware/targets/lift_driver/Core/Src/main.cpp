@@ -2,15 +2,24 @@
 #include "TMC2208Stepper.h"
 #include "STM_UART.hpp"
 #include "STM_GPIO.hpp"
+#include "SERIAL_SWITCH.h"
 
 STM_Uart debugUart = {USART1, 115200};
+STM_Uart tmcUart = {USART2, 115200};
+
+class STM_Switch : public TMC_SerialSwitch {
+public:
+    void active() override {}
+    void disactive() override {}
+};
+
+STM_Switch tmcSwitch;
 
 STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
 STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
 STM32_GPIO LED3 = {LED3_GPIO_Port, LED3_Pin};
 
-
-//TMC2208Stepper TMC = {&tmcUart, 0.11, TMC2208Stepper::TMC2208_SLAVE_ADDR, };
+TMC2208Stepper TMC = {tmcUart, tmcSwitch, 0.11, TMC2208Stepper::TMC2208_SLAVE_ADDR};
 
 extern "C"
 int myMain() {

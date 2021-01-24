@@ -72,12 +72,12 @@ void STM_Uart::init(){
     enableInterrupt(InterruptType::RX_FULL);
 }
 
-void STM_Uart::write(void const* data, uint16_t length){
+int STM_Uart::write(uint8_t* data, uint16_t length){
     // enter critical section
     __disable_irq();
     // put data to ring buffer
     for(uint16_t i=0; i<length; i++){
-        RingBuffer_PutChar(&txRingBuffer, *(reinterpret_cast<char*>(const_cast<void*>(data)) + i));
+        RingBuffer_PutChar(&txRingBuffer, *(reinterpret_cast<char*>(data + i)));
     }
     // exit critical section
     __enable_irq();
@@ -85,7 +85,7 @@ void STM_Uart::write(void const* data, uint16_t length){
         // enable TX empty interrupt
         enableInterrupt(InterruptType::TX_EMPTY);
 //    }
-
+    return  length;
 }
 
 int STM_Uart::write(uint8_t data) {

@@ -4,58 +4,10 @@
 #include "HAL.hpp"
 #include <cstdint>
 
-// Protected
-// addr needed for TMC2209
-TMC2208Stepper::TMC2208Stepper(Stream * SerialPort, float RS, uint8_t addr) :
-	TMCStepper(RS),
-	slave_address(addr)
-	{
-		HWSerial = SerialPort;
-		defaults();
-	}
-
-TMC2208Stepper::TMC2208Stepper(Stream * SerialPort, float RS, uint8_t addr, uint16_t mul_pin1, uint16_t mul_pin2) :
-	TMC2208Stepper(SerialPort, RS)
-	{
-		SSwitch *SMulObj = new SSwitch(mul_pin1, mul_pin2, addr);
-		sswitch = SMulObj;
-	}
-
-#if SW_CAPABLE_PLATFORM
-	// Protected
-	// addr needed for TMC2209
-	TMC2208Stepper::TMC2208Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS, uint8_t addr) :
-		TMCStepper(RS),
-		RXTX_pin(SW_RX_pin == SW_TX_pin ? SW_RX_pin : 0),
-		slave_address(addr)
-		{
-			SoftwareSerial *SWSerialObj = new SoftwareSerial(SW_RX_pin, SW_TX_pin);
-			SWSerial = SWSerialObj;
-			defaults();
-		}
-
-	void TMC2208Stepper::beginSerial(uint32_t baudrate) {
-		if (SWSerial != nullptr)
-		{
-			SWSerial->begin(baudrate);
-			SWSerial->stopListening();
-		}
-		#if defined(ARDUINO_ARCH_AVR)
-			if (RXTX_pin > 0) {
-				digitalWrite(RXTX_pin, HIGH);
-				pinMode(RXTX_pin, OUTPUT);
-			}
-		#endif
-	}
-#endif
-
 void TMC2208Stepper::begin() {
-	#if SW_CAPABLE_PLATFORM
-		beginSerial(115200);
-	#endif
 	pdn_disable(true);
 	mstep_reg_select(true);
-
+	HWSerial.init();
 }
 
 void TMC2208Stepper::defaults() {
@@ -110,80 +62,42 @@ uint8_t TMC2208Stepper::calcCRC(uint8_t datagram[], uint8_t len) {
 
 __attribute__((weak))
 int TMC2208Stepper::available() {
-	int out = 0;
-	#if SW_CAPABLE_PLATFORM
-		if (SWSerial != nullptr) {
-			out = SWSerial->available();
-		} else
-	#endif
-		if (HWSerial != nullptr) {
-			out = HWSerial->available();
-		}
-
-	return out;
+    return HWSerial.available();
 }
 
 __attribute__((weak))
 void TMC2208Stepper::preWriteCommunication() {
-	if (HWSerial != nullptr) {
-		if (sswitch != nullptr)
-			sswitch->active();
-	}
+    SerialSwitch.active();
 }
 
 __attribute__((weak))
 void TMC2208Stepper::preReadCommunication() {
-	#if SW_CAPABLE_PLATFORM
-		if (SWSerial != nullptr) {
-			SWSerial->listen();
-		} else
-	#endif
-		if (HWSerial != nullptr) {
-			if (sswitch != nullptr)
-				sswitch->active();
-		}
+    SerialSwitch.active();
 }
 
 __attribute__((weak))
 int16_t TMC2208Stepper::serial_read() {
-	int16_t out = 0;
-	#if SW_CAPABLE_PLATFORM
-		if (SWSerial != nullptr) {
-			out = SWSerial->read();
-		} else
-	#endif
-		if (HWSerial != nullptr) {
-			out = HWSerial->read();
-		}
-
-	return out;
+	return HWSerial.read();
 }
 
 __attribute__((weak))
 uint8_t TMC2208Stepper::serial_write(const uint8_t data) {
-	int out = 0;;
-	#if SW_CAPABLE_PLATFORM
-		if (SWSerial != nullptr) {
-			return SWSerial->write(data);
-		} else
-	#endif
-		if (HWSerial != nullptr) {
-			return HWSerial->write(data);
-		}
-
-	return out;
+    return HWSerial.write(data);
 }
 
 __attribute__((weak))
-void TMC2208Stepper::postWriteCommunication() {}
+uint8_t TMC2208Stepper::serial_write(uint8_t *data, uint8_t len) {
+    return HWSerial.write(data, len);
+}
+
+__attribute__((weak))
+void TMC2208Stepper::postWriteCommunication() {
+    SerialSwitch.disactive();
+}
 
 __attribute__((weak))
 void TMC2208Stepper::postReadCommunication() {
-	#if SW_CAPABLE_PLATFORM
-		if (SWSerial != nullptr) {
-			SWSerial->stopListening();
-		}
-	#endif
+    SerialSwitch.disactive();
 }
 
 void TMC2208Stepper::write(uint8_t addr, uint32_t regVal) {
@@ -195,9 +109,12 @@ void TMC2208Stepper::write(uint8_t addr, uint32_t regVal) {
 
 	preWriteCommunication();
 
-	for(uint8_t i=0; i<=len; i++) {
-		bytesWritten += serial_write(datagram[i]);
-	}
+//	for(uint8_t i=0; i<=len; i++) {
+//		serial_write(datagram[i]);
+//	}
+
+	serial_write(datagram, len + 1);
+
 	postWriteCommunication();
 
 	delay(replyDelay);
@@ -206,26 +123,28 @@ void TMC2208Stepper::write(uint8_t addr, uint32_t regVal) {
 uint64_t TMC2208Stepper::_sendDatagram(uint8_t datagram[], const uint8_t len, uint16_t timeout) {
 	while (available() > 0) serial_read(); // Flush
 
-	#if defined(ARDUINO_ARCH_AVR)
-		if (RXTX_pin > 0) {
-			digitalWrite(RXTX_pin, HIGH);
-			pinMode(RXTX_pin, OUTPUT);
-		}
-	#endif
+//	#if defined(ARDUINO_ARCH_AVR)
+//		if (RXTX_pin > 0) {
+//			digitalWrite(RXTX_pin, HIGH);
+//			pinMode(RXTX_pin, OUTPUT);
+//		}
+//	#endif
 
-	for(int i=0; i<=len; i++) serial_write(datagram[i]);
+//	for(int i=0; i<=len; i++) serial_write(datagram[i]);
 
-	#if defined(ARDUINO_ARCH_AVR)
-		if (RXTX_pin > 0) {
-			pinMode(RXTX_pin, INPUT_PULLUP);
-		}
-	#endif
+	serial_write(datagram, len + 1);
 
-	delay(this->replyDelay);
+//	#if defined(ARDUINO_ARCH_AVR)
+//		if (RXTX_pin > 0) {
+//			pinMode(RXTX_pin, INPUT_PULLUP);
+//		}
+//	#endif
+
+	delay(replyDelay);
 
 	// scan for the rx frame and read it
 	uint32_t ms = millis();
-	uint32_t sync_target = (static_cast<uint32_t>(datagram[0])<<16) | 0xFF00 | datagram[2];
+	uint32_t sync_target = (static_cast<uint32_t>(datagram[0])<<16) | 0xFF00u | datagram[2];
 	uint32_t sync = 0;
 
 	do {
@@ -240,15 +159,15 @@ uint64_t TMC2208Stepper::_sendDatagram(uint8_t datagram[], const uint8_t len, ui
 		int16_t res = serial_read();
 		if (res < 0) continue;
 
-		sync <<= 8;
-		sync |= res & 0xFF;
-		sync &= 0xFFFFFF;
+		sync <<= 8u;
+		sync |= res & 0xFFu;
+		sync &= 0xFFFFFFu;
 
 	} while (sync != sync_target);
 
 	uint64_t out = sync;
 	ms = millis();
-	timeout = this->abort_window;
+	timeout = abort_window;
 
 	for(uint8_t i=0; i<5;) {
 		uint32_t ms2 = millis();
@@ -262,18 +181,18 @@ uint64_t TMC2208Stepper::_sendDatagram(uint8_t datagram[], const uint8_t len, ui
 		int16_t res = serial_read();
 		if (res < 0) continue;
 
-		out <<= 8;
-		out |= res & 0xFF;
+		out <<= 8u;
+		out |= res & 0xFFu;
 
 		i++;
 	}
 
-	#if defined(ARDUINO_ARCH_AVR)
-		if (RXTX_pin > 0) {
-			digitalWrite(RXTX_pin, HIGH);
-			pinMode(RXTX_pin, OUTPUT);
-		}
-	#endif
+//	#if defined(ARDUINO_ARCH_AVR)
+//		if (RXTX_pin > 0) {
+//			digitalWrite(RXTX_pin, HIGH);
+//			pinMode(RXTX_pin, OUTPUT);
+//		}
+//	#endif
 
 	while (available() > 0) serial_read(); // Flush
 
@@ -296,14 +215,14 @@ uint32_t TMC2208Stepper::read(uint8_t addr) {
 
 		CRCerror = false;
 		uint8_t out_datagram[] = {
-			static_cast<uint8_t>(out>>56),
-			static_cast<uint8_t>(out>>48),
-			static_cast<uint8_t>(out>>40),
-			static_cast<uint8_t>(out>>32),
-			static_cast<uint8_t>(out>>24),
-			static_cast<uint8_t>(out>>16),
-			static_cast<uint8_t>(out>> 8),
-			static_cast<uint8_t>(out>> 0)
+			static_cast<uint8_t>(out>>56u),
+			static_cast<uint8_t>(out>>48u),
+			static_cast<uint8_t>(out>>40u),
+			static_cast<uint8_t>(out>>32u),
+			static_cast<uint8_t>(out>>24u),
+			static_cast<uint8_t>(out>>16u),
+			static_cast<uint8_t>(out>> 8u),
+			static_cast<uint8_t>(out>> 0u)
 		};
 		uint8_t crc = calcCRC(out_datagram, 7);
 		if ((crc != static_cast<uint8_t>(out)) || crc == 0 ) {
@@ -314,7 +233,7 @@ uint32_t TMC2208Stepper::read(uint8_t addr) {
 		}
 	}
 
-	return out>>8;
+	return out>>8u;
 }
 
 uint8_t TMC2208Stepper::IFCNT() {
@@ -416,3 +335,5 @@ uint8_t TMC2208Stepper::pwm_grad_auto() {
     r.sr = PWM_AUTO();
     return r.pwm_grad_auto;
 }
+
+

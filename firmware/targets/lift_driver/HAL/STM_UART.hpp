@@ -31,7 +31,7 @@ public:
 public:
     STM_Uart(USART_TypeDef* uart, uint32_t baudrate);
 
-    void init();
+    void init() override ;
 
     int available() override {
         return RingBuffer_GetLen(&rxRingBuffer);
@@ -47,6 +47,7 @@ public:
 
     uint8_t read() override ;
     int write(uint8_t data) override ;
+    int write(uint8_t *data, uint16_t length) override;
 
     bool isBufferEmpty();
     uint16_t getBufferLevel();
@@ -55,6 +56,6 @@ public:
 
     int interrupt();
 
-    void write(const void *data, uint16_t length);
+
 };
 

@@ -5,23 +5,15 @@
 #include "TMC2208_bitfields.h"
 
 class TMC2208Stepper : public TMCStepper {
+    Stream &HWSerial;
+    TMC_SerialSwitch &SerialSwitch;
 public:
-    TMC2208Stepper(Stream * SerialPort, float RS, uint8_t addr, uint16_t mul_pin1, uint16_t mul_pin2);
-    TMC2208Stepper(Stream * SerialPort, float RS) :
-            TMC2208Stepper(SerialPort, RS, TMC2208_SLAVE_ADDR)
-    {}
-#if SW_CAPABLE_PLATFORM
-    TMC2208Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS) :
-				TMC2208Stepper(SW_RX_pin, SW_TX_pin, RS, TMC2208_SLAVE_ADDR)
-				{}
+//    TMC2208Stepper(Stream * SerialPort, TMC_SerialSwitch &SerialSwitch, float RS, uint8_t addr, uint16_t mul_pin1, uint16_t mul_pin2);
+    TMC2208Stepper(Stream &SerialPort, TMC_SerialSwitch &SerialSwitch, float RS, uint8_t addr = TMC2208_SLAVE_ADDR)
+        : TMCStepper(RS), HWSerial(SerialPort), SerialSwitch(SerialSwitch), Rsense(RS), slave_address(addr) {
+        defaults();
+    }
 
-			__attribute__((deprecated("Boolean argument has been deprecated and does nothing")))
-			TMC2208Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS, bool) :
-				TMC2208Stepper(SW_RX_pin, SW_TX_pin, RS, TMC2208_SLAVE_ADDR)
-				{};
-#else
-    TMC2208Stepper(uint16_t, uint16_t, float) = delete; // Your platform does not currently support Software Serial
-#endif
     void defaults();
     void push();
     void begin();
@@ -165,10 +157,12 @@ public:
     uint8_t pwm_ofs_auto();
     uint8_t pwm_grad_auto();
 
-    uint16_t bytesWritten = 0;
+    // uint16_t bytesWritten = 0;
     float Rsense = 0.11;
     bool CRCerror = false;
 
+    static constexpr uint8_t
+            TMC2208_SLAVE_ADDR = 0x00;
 protected:
     TMC2208_n::GCONF_t GCONF_register = TMC2208_n::GCONF_t {{.sr=0}};
     TMC2208_n::VACTUAL_t VACTUAL_register = TMC2208_n::VACTUAL_t {.sr=0};
@@ -182,35 +176,37 @@ protected:
     struct OTP_PROG_t 	{ constexpr static uint8_t address = 0x04; };
     struct OTP_READ_t 	{ constexpr static uint8_t address = 0x05; };
 
-    TMC2208Stepper(Stream * SerialPort, float RS, uint8_t addr);
+    //TMC2208Stepper(Stream * SerialPort, float RS, uint8_t addr);
 #if SW_CAPABLE_PLATFORM
     TMC2208Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS, uint8_t addr);
 #endif
 
-    Stream * HWSerial = nullptr;
+
 #if SW_CAPABLE_PLATFORM
     SoftwareSerial * SWSerial = nullptr;
 			const uint16_t RXTX_pin = 0; // Half duplex
 #endif
 
-    SSwitch *sswitch = nullptr;
+//    SSwitch *sswitch = nullptr;
 
     int available();
     void preWriteCommunication();
     void preReadCommunication();
     int16_t serial_read();
-    uint8_t serial_write(const uint8_t data);
+    uint8_t serial_write(uint8_t data);
+    uint8_t serial_write(const uint8_t *data, uint8_t len);
     void postWriteCommunication();
     void postReadCommunication();
     void write(uint8_t, uint32_t);
     uint32_t read(uint8_t);
     const uint8_t slave_address;
     uint8_t calcCRC(uint8_t datagram[], uint8_t len);
-    static constexpr uint8_t  TMC2208_SYNC = 0x05,
-            TMC2208_SLAVE_ADDR = 0x00;
+    static constexpr uint8_t  TMC2208_SYNC = 0x05;
     static constexpr uint8_t replyDelay = 2;
     static constexpr uint8_t abort_window = 5;
     static constexpr uint8_t max_retries = 2;
 
     uint64_t _sendDatagram(uint8_t [], const uint8_t, uint16_t);
+
+    uint8_t serial_write(uint8_t *data, uint8_t len);
 };

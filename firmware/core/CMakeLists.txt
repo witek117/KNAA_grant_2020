@@ -1,6 +1,5 @@
 add_subdirectory(external)
 add_subdirectory(VL53L0X)
-#add_subdirectory(TMCStepper)
 add_subdirectory(TMC)
 
 add_library(core core.cpp ring_buffer.cpp)

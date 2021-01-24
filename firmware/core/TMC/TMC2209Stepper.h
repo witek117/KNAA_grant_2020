@@ -7,15 +7,9 @@
 
 class TMC2209Stepper : public TMC2208Stepper {
 public:
-    TMC2209Stepper(Stream * SerialPort, float RS, uint8_t addr) :
-            TMC2208Stepper(SerialPort, RS, addr) {}
+    TMC2209Stepper(Stream &SerialPort, TMC_SerialSwitch &SerialSwitch, float RS, uint8_t addr) :
+            TMC2208Stepper(SerialPort, SerialSwitch, RS, addr) {}
 
-#if SW_CAPABLE_PLATFORM
-    TMC2209Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS, uint8_t addr) :
-				TMC2208Stepper(SW_RX_pin, SW_TX_pin, RS, addr) {}
-#else
-    TMC2209Stepper(uint16_t, uint16_t, float, uint8_t) = delete; // Your platform does not currently support Software Serial
-#endif
     void push();
 
     // R: IOIN
