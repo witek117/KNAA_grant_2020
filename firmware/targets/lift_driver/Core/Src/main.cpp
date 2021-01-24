@@ -13,7 +13,7 @@ int millis() {
 }
 
 STM_Uart debugUart = {USART1, 115200};
-STM_Uart tmcUart = {USART2, 115200};
+STM_Uart tmcUart = {USART3, 115200};
 
 class STM_Switch : public TMC_SerialSwitch {
 public:
@@ -40,7 +40,7 @@ TMC2209Stepper TMC = {tmcUart, tmcSwitch, 0.11, 0x00};
 
 void delayMicroseconds(uint32_t time) {
     for (volatile uint32_t i = 0; i < time; ++i) {
-        for (volatile uint32_t j = 0; j < 10; j++) {
+        for (volatile uint32_t j = 0; j < 30; j++) {
             ;
         }
     }
@@ -51,9 +51,9 @@ extern "C"
 int myMain() {
     TMC.begin();
     TMC.toff(4);
-    TMC.blank_time(24);
+//    TMC.blank_time(24);
     TMC.rms_current(400); // mA
-    TMC.microsteps(0);
+    TMC.microsteps(4);
     TMC.TCOOLTHRS(0xFFFFF); // 20bit max
     TMC.semin(5);
     TMC.semax(2);
@@ -69,14 +69,14 @@ int myMain() {
     debugUart.init();
 
     while (true) {
-//        for (uint16_t i = 5000; i>0; i--) {
-//            STEP.set();
-//            delayMicroseconds(160);
-//            STEP.reset();
-//            delayMicroseconds(160);
-//        }
-//        shaft = !shaft;
-//        TMC.shaft(shaft);
+        for (uint16_t i = 5000; i>0; i--) {
+            STEP.set();
+            delayMicroseconds(200);
+            STEP.reset();
+            delayMicroseconds(200);
+        }
+        shaft = !shaft;
+        TMC.shaft(shaft);
 
 
 //        HAL_Delay(100);
