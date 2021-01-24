@@ -5,7 +5,9 @@
 
 STM_Uart debugUart = {USART1, 115200};
 
-STM32_GPIO LED = {LED_GPIO_Port, LED_Pin};
+STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
+STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
+STM32_GPIO LED3 = {LED3_GPIO_Port, LED3_Pin};
 
 
 //TMC2208Stepper TMC = {&tmcUart, 0.11, TMC2208Stepper::TMC2208_SLAVE_ADDR, };
@@ -18,12 +20,16 @@ int myMain() {
     while (true) {
 
         HAL_Delay(100);
+//        debugUart.write(k, 5);
+        LED1.toggle();
+        LED2.toggle();
+        LED3.toggle();
         int len = debugUart.available();
         if (len > 0) {
 //            debugUart.write(k, 5);
             debugUart.write(debugUart.read() + 48);
 //            debugUart.read();
-            LED.toggle();
+
         }
 
     }

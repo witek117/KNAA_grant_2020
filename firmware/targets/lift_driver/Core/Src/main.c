@@ -93,9 +93,9 @@ int main(void)
     myMain();
 
 //    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-////    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-////    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-////    HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+//    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+//    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+//    HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 //    uint8_t k [5] = {'0', '1','2', '3', '4'};
 //    HAL_UART_Init(&huart1);
   /* USER CODE END 2 */
