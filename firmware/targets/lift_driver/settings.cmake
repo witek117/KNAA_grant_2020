@@ -7,8 +7,14 @@ ReadVariables(${CMAKE_CURRENT_LIST_DIR}/Makefile "FPU")
 ReadVariables(${CMAKE_CURRENT_LIST_DIR}/Makefile "FLOAT-ABI")
 ReadVariables(${CMAKE_CURRENT_LIST_DIR}/Makefile "C_DEFS")          # get flag -DSTM32F***
 
-#set(ARMFLOAT            "-mfpu=${FPU} -mfloat-abi=${FLOAT-ABI}")
+
+if (NOT "${FPU}" STREQUAL "")
+    set(ARMFLOAT            "-mfpu=${FPU} -mfloat-abi=${FLOAT-ABI}")
+endif()
+
 set(CMCU                "-mcpu=${CPU} -mthumb ${ARMFLOAT}")
+
+set(DEVICE STM32F103C8)
 
 string(REPLACE          ";" " " C_DEFS "${C_DEFS}")
 
