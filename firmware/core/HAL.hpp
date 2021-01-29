@@ -3,8 +3,8 @@
 void delay(uint32_t time);
 int millis();
 
-class HAL {
-
-public:
-    virtual int millis() = 0;
-};
+//class HAL {
+//
+//public:
+//    virtual int millis() = 0;
+//};

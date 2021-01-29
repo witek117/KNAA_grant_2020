@@ -96,11 +96,10 @@ class VL53L0X
 
     enum vcselPeriodType { VcselPeriodPreRange, VcselPeriodFinalRange };
 
-    uint8_t last_status; // status of last I2C transmission
+    uint8_t last_status; // status of last STM_I2C transmission
 
-    VL53L0X(I2C& Wire, HAL& Hal);
+    VL53L0X(I2C& Wire);
     I2C& Wire;
-    HAL& Hal;
     void setAddress(uint8_t new_addr);
     inline uint8_t getAddress(void) { return address; }
 

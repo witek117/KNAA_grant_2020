@@ -32,20 +32,20 @@
 // PLL_period_ps = 1655; macro_period_vclks = 2304
 #define calcMacroPeriod(vcsel_period_pclks) ((((uint32_t)2304 * (vcsel_period_pclks) * 1655) + 500) / 1000)
 
-//extern uint32_t millis();
+extern int millis();
 
 void VL53L0X::startTimeout() {
-    timeout_start_ms = Hal.millis();
+    timeout_start_ms = millis();
 }
 
 bool VL53L0X::checkTimeoutExpired() {
-    return io_timeout > 0 && ((uint16_t)(Hal.millis() - timeout_start_ms) > io_timeout);
+    return io_timeout > 0 && ((uint16_t)(millis() - timeout_start_ms) > io_timeout);
 }
 
 // Constructors ////////////////////////////////////////////////////////////////
 
-VL53L0X::VL53L0X(I2C& Wire, HAL& Hal)
-:  Wire(Wire), Hal(Hal), address(ADDRESS_DEFAULT)
+VL53L0X::VL53L0X(I2C& Wire)
+:  Wire(Wire), address(ADDRESS_DEFAULT)
   , io_timeout(0) // no timeout
   , did_timeout(false) { }
 
@@ -81,7 +81,7 @@ bool VL53L0X::init(bool io_2v8)
       readReg(VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV) | 0x01); // set bit 0
   }
 
-  // "Set I2C standard mode"
+  // "Set STM_I2C standard mode"
   writeReg(0x88, 0x00);
   writeReg(0x88, 0x00);
 

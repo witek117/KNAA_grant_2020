@@ -3,6 +3,8 @@
 #include "STM_UART.hpp"
 #include "STM_GPIO.hpp"
 #include "SERIAL_SWITCH.h"
+#include "VL53L0X.h"
+#include "STM_I2C.h"
 
 void delay(uint32_t time) {
     HAL_Delay(time);
@@ -11,6 +13,8 @@ void delay(uint32_t time) {
 int millis() {
     return HAL_GetTick();
 }
+
+
 
 STM_Uart debugUart = {USART1, 115200};
 STM_Uart tmcUart = {USART3, 115200};
@@ -22,6 +26,12 @@ public:
 };
 
 STM_Switch tmcSwitch;
+
+extern I2C_HandleTypeDef hi2c1;
+STM_I2C I2C = {hi2c1};
+
+VL53L0X laser = {I2C, };
+
 
 STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
 STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
@@ -51,7 +61,7 @@ extern "C"
 int myMain() {
     TMC.begin();
     TMC.toff(4);
-//    TMC.blank_time(24);
+    TMC.blank_time(24);
     TMC.rms_current(400); // mA
     TMC.microsteps(4);
     TMC.TCOOLTHRS(0xFFFFF); // 20bit max
@@ -75,6 +85,8 @@ int myMain() {
             STEP.reset();
             delayMicroseconds(200);
         }
+//        TMC.index_step(1000);
+//        delay(1000);
         shaft = !shaft;
         TMC.shaft(shaft);
 
