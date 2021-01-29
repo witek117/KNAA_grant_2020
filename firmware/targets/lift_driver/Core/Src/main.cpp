@@ -5,6 +5,7 @@
 #include "SERIAL_SWITCH.h"
 #include "VL53L0X.h"
 #include "STM_I2C.h"
+#include <cstring>
 
 void delay(uint32_t time) {
     HAL_Delay(time);
@@ -75,11 +76,38 @@ int myMain() {
     EN.reset();
     DIR.set();
 
+
+
 //    uint8_t k [] = {'0', '2','2', '4', '\n', 0};
+    laser.setAddress(laser.getAddress() << 1u);
+
     debugUart.init();
+    if(laser.init()) {
+        debugUart.write((uint8_t *) "T", 1);
+    } else {
+        debugUart.write((uint8_t *) "N", 1);
+    }
+
+    debugUart.write_int((int)(laser.getAddress()));
+
+
+    laser.setTimeout(500);
+
+//    laser.setSignalRateLimit(0.1);
+    // increase laser pulse periods (defaults are 14 and 10 PCLKs)
+//    laser.setVcselPulsePeriod(VL53L0X::VcselPeriodPreRange, 18);
+//    laser.setVcselPulsePeriod(VL53L0X::VcselPeriodFinalRange, 14);
+
+
+    auto milli = laser.readRangeSingleMillimeters();
+    char buffer[20] = {0};
+
+    sprintf(buffer, "%d\n", milli);
+
+    debugUart.write(reinterpret_cast<uint8_t *>(buffer), strlen(buffer));
 
     while (true) {
-        for (uint16_t i = 5000; i>0; i--) {
+        for (uint16_t i = 500; i>0; i--) {
             STEP.set();
             delayMicroseconds(200);
             STEP.reset();
@@ -89,6 +117,15 @@ int myMain() {
 //        delay(1000);
         shaft = !shaft;
         TMC.shaft(shaft);
+
+        milli = laser.readRangeSingleMillimeters();
+//        char buffer[20] = {0};
+
+        sprintf(buffer, "%d\n", milli);
+
+        debugUart.write(reinterpret_cast<uint8_t *>(buffer), strlen(buffer));
+
+        if (laser.timeoutOccurred()) { debugUart.write((uint8_t *) "TIMEOUT\n", 8); }
 
 
 //        HAL_Delay(100);

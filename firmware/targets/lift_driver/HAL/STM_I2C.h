@@ -29,7 +29,8 @@ public:
     }
 
     void requestFrom(uint8_t addr, uint8_t length) override {
-//        HAL_I2C_Master_Transmit((I2C_HandleTypeDef*)&hi2c, address, &length, 1, 10);
+
+//        HAL_I2C_Master_Transmit((I2C_HandleTypeDef*)&hi2c, , &length, 1, 10);
         HAL_I2C_Master_Receive((I2C_HandleTypeDef*)&hi2c, addr, data_buffer, length, 10);
         indexBuffer = length;
         readIndexBuffer = 0;
