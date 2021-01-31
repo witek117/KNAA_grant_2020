@@ -72,6 +72,9 @@ void Error_Handler(void);
 #define STEP_GPIO_Port GPIOB
 #define ENABLE_Pin GPIO_PIN_13
 #define ENABLE_GPIO_Port GPIOB
+#define GPIO1_Pin GPIO_PIN_5
+#define GPIO1_GPIO_Port GPIOB
+#define GPIO1_EXTI_IRQn EXTI9_5_IRQn
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

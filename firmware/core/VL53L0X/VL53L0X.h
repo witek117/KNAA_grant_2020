@@ -133,6 +133,24 @@ class VL53L0X
     inline uint16_t getTimeout(void) { return io_timeout; }
     bool timeoutOccurred(void);
 
+    void ISR() {
+        interruptFlag = true;
+    }
+
+    bool haveNewData() {
+        if (interruptFlag) {
+            interruptFlag = false;
+            return true;
+        }
+        return false;
+    }
+
+    uint16_t readAfterISR() {
+        uint16_t data = readReg16Bit(VL53L0X::RESULT_RANGE_STATUS + 10);
+        writeReg(VL53L0X::SYSTEM_INTERRUPT_CLEAR, 0x01);
+        return data;
+    }
+
   private:
     // TCC: Target CentreCheck
     // MSRC: Minimum Signal Rate Check
@@ -160,6 +178,8 @@ class VL53L0X
 
     uint8_t stop_variable; // read by init and used when starting measurement; is StopVariable field of VL53L0X_DevData_t structure in API
     uint32_t measurement_timing_budget_us;
+
+    bool interruptFlag = false;
 
     bool getSpadInfo(uint8_t * count, bool * type_is_aperture);
 
