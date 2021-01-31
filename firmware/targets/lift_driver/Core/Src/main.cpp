@@ -60,7 +60,7 @@ void delayMicroseconds(uint32_t time) {
 bool shaft = false;
 
 extern "C"
-int myMain() {
+[[noreturn]] int myMain() {
     TMC.begin();
     TMC.toff(4);
     TMC.blank_time(24);
