@@ -6,6 +6,20 @@
 #include "VL53L0X.h"
 #include "STM_I2C.h"
 #include <cstring>
+#include "Command.h"
+#include "command_manager.h"
+
+STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
+
+void enable_interrupts() {}
+
+void disable_interrupts() {}
+
+void print_idn_callback(const char* data);
+void test_LED_callback(const char* data);
+
+Command idn("*IDN?", print_idn_callback);
+Command test("test", test_LED_callback);
 
 void delay(uint32_t time) {
     HAL_Delay(time);
@@ -36,7 +50,7 @@ STM_I2C I2C = {hi2c1};
 VL53L0X laser = {I2C };
 
 STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
-STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
+
 STM32_GPIO LED3 = {LED3_GPIO_Port, LED3_Pin};
 
 STM32_GPIO STEP = {DIR_GPIO_Port, DIR_Pin};
@@ -62,9 +76,26 @@ void delayMicroseconds(uint32_t time) {
     }
 }
 bool shaft = false;
+void print_function(uint8_t data) {
+    rs485.write(data);
+}
+
+CommandManager<10> command_manager(&enable_interrupts, &disable_interrupts, &print_function);
+
+void redirect_handler(uint8_t data) {
+    (void)data;
+//    LED3.toggle();
+    command_manager.reader.putChar((char)data);
+
+//    command_manager.print('d');
+}
 
 extern "C"
 [[noreturn]] int myMain() {
+    command_manager.init();
+    rs485.init();
+    rs485.setRedirectHandler(redirect_handler);
+
     TMC.begin();
     TMC.toff(4);
     TMC.blank_time(24);
@@ -87,11 +118,14 @@ extern "C"
 
     debugUart.init();
     laser.init();
-    rs485.init();
 
-    rs485.write((uint8_t *) "123456789", 9);
+    command_manager.addCommand(&idn);
+    command_manager.addCommand(&test);
 
-    debugUart.write_int((int)(laser.getAddress()));
+
+//    rs485.write((uint8_t *) "123456789", 9);
+
+//    debugUart.write_int((int)(laser.getAddress()));
 
     laser.setTimeout(500);
 
@@ -105,15 +139,21 @@ extern "C"
 //    laser.readRangeContinuousMillimeters();
 //    uint32_t kkk = 0;
     while (true) {
+        command_manager.run();
+
         if(laser.haveNewData()) {
             auto data = laser.readAfterISR();
             (void)data;
 //            debugUart.write_int(kkk++);
         }
-        rs485.write((uint8_t *) "123456789\n", 10);
-        debugUart.write((uint8_t *) "123456789\n", 10);
+//        kkk++;
+//        debugUart.write_int(kkk);
+//        rs485.write_int(kkk);
+//        command_manager.print('d');
+//        rs485.write((uint8_t *) "123456789\n", 10);
+//        debugUart.write((uint8_t *) "123456789\n", 10);
 //
-        LED3.toggle();
+//        LED3.toggle();
 //        delay(0);
 //        delay(0);
         if (!HAL_GPIO_ReadPin(GPIO1_GPIO_Port, GPIO1_Pin)) {
@@ -132,4 +172,21 @@ extern "C"
         shaft = !shaft;
         TMC.shaft(shaft);
     }
+}
+
+void print_idn_callback(const char* data) {
+    (void)data;
+    command_manager.print("Lift Driver v1.0\n");
+}
+
+
+void test_LED_callback(const char* data) {
+    (void)data;
+    LED1.set(); HAL_Delay(100);
+    LED2.set(); HAL_Delay(100);
+    LED3.set(); HAL_Delay(100);
+
+    LED1.reset(); HAL_Delay(100);
+    LED2.reset(); HAL_Delay(100);
+    LED3.reset();
 }

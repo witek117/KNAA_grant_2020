@@ -128,8 +128,6 @@ function(target_jlink_flash TARGET BASE_ADDRESS)
     else()
         message(WARNING "JLink not found in PATH")
     endif()
-
-
 endfunction(target_jlink_flash)
 
 function(target_stlink_flash TARGET CONFIG)

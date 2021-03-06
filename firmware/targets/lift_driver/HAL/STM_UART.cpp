@@ -159,7 +159,7 @@ int STM_Uart::interrupt() {
             if (redirectHandler) {
                 redirectHandler(data);
             } else {
-                RingBuffer_PutChar(&(rxRingBuffer), data);
+                RingBuffer_PutChar(&rxRingBuffer, data);
             }
 
             if (isrflags & USART_SR_RXNE) {
@@ -172,7 +172,7 @@ int STM_Uart::interrupt() {
         // UART in mode Transmitter -------------------------------------------------
         if (((isrflags & USART_SR_TXE) != RESET) && ((cr1its & USART_CR1_TXEIE) != RESET)) {
             uint8_t c;
-            if (RingBuffer_GetChar(&(txRingBuffer), &c)) {
+            if (RingBuffer_GetChar(&txRingBuffer, &c)) {
                 uart->DR = c;
             } else {
                 disableInterrupt(InterruptType::TX_EMPTY);
@@ -190,7 +190,7 @@ int STM_Uart::interrupt() {
 
     if (isrflags & USART_SR_TC) {
         uart->SR &= ~ USART_SR_TC;
-        if(RingBuffer_GetLen(&(txRingBuffer)) == 0 && transmitting) {
+        if(RingBuffer_IsEmpty(&txRingBuffer) && transmitting) {
             afterTx();
             transmitting = false;
         }

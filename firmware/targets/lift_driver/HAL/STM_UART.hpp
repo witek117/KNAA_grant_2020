@@ -61,10 +61,7 @@ public:
 
     virtual void beforeTx() {}
     virtual void afterTx() {}
-
-
 };
-
 
 class STM_RS485 : public STM_Uart {
     STM32_GPIO &DE;
@@ -75,19 +72,6 @@ public:
         DE.reset();
         STM_Uart::init();
     }
-//    int write(uint8_t data) override  {
-//
-//        int ret = STM_Uart::write(data);
-//        DE.reset();
-//        return ret;
-//    }
-//
-//    int write(uint8_t *data, uint16_t length) override {
-//        DE.set();
-//        int ret = STM_Uart::write(data, length);
-//        DE.reset();
-//        return ret;
-//    }
 
     void beforeTx() override {
         DE.set();
@@ -95,5 +79,4 @@ public:
     void afterTx() override {
         DE.reset();
     }
-
 };

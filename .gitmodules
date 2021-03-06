@@ -1,0 +1,3 @@
+[submodule "firmware/core/CommandParser"]
+	path = firmware/core/CommandParser
+	url = https://github.com/witek117/CommandParser.git
