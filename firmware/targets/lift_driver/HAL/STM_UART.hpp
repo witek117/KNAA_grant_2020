@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UART.hpp"
+#include "STM_GPIO.hpp"
 
 #include <stm32f1xx.h>
 #include "cstdint"
@@ -41,9 +42,9 @@ public:
         this->redirectHandler = redirectHandler_;
     }
 
-    void enableInterrupt(InterruptType interrupt) const;
+    void enableInterrupt(InterruptType interrupt);
 
-    void disableInterrupt(InterruptType interrupt) const;
+    void disableInterrupt(InterruptType interrupt);
 
     uint8_t read() override ;
     int write(uint8_t data) override ;
@@ -56,6 +57,43 @@ public:
 
     int interrupt();
 
+    bool transmitting = false;
+
+    virtual void beforeTx() {}
+    virtual void afterTx() {}
+
 
 };
 
+
+class STM_RS485 : public STM_Uart {
+    STM32_GPIO &DE;
+public:
+    STM_RS485(USART_TypeDef* uart, uint32_t baudrate, STM32_GPIO &DE) : STM_Uart(uart, baudrate), DE(DE) { }
+
+    void init() override {
+        DE.reset();
+        STM_Uart::init();
+    }
+//    int write(uint8_t data) override  {
+//
+//        int ret = STM_Uart::write(data);
+//        DE.reset();
+//        return ret;
+//    }
+//
+//    int write(uint8_t *data, uint16_t length) override {
+//        DE.set();
+//        int ret = STM_Uart::write(data, length);
+//        DE.reset();
+//        return ret;
+//    }
+
+    void beforeTx() override {
+        DE.set();
+    }
+    void afterTx() override {
+        DE.reset();
+    }
+
+};

@@ -57,7 +57,7 @@ void STM_Uart::init(){
     uart->CR1 |= USART_CR1_UE;
 
     // transmit and receive
-    uart->CR1 |= USART_CR1_TE | USART_CR1_RE;
+    uart->CR1 |= USART_CR1_TE | USART_CR1_RE | USART_CR1_TCIE ;
 
     if(USART1 == uart){
         NVIC_ClearPendingIRQ(USART1_IRQn);
@@ -130,12 +130,17 @@ void STM_Uart::flushRxBuffer(){
     RingBuffer_Clear(&rxRingBuffer);
 }
 
-void STM_Uart::enableInterrupt(InterruptType interrupt) const{
+void STM_Uart::enableInterrupt(InterruptType interrupt){
     (void) interrupt;
     uart->CR1 |= static_cast<uint8_t >(interrupt);
+
+    if (interrupt == InterruptType::TX_EMPTY && !transmitting) {
+        transmitting = true;
+        beforeTx();
+    }
 }
 
-void STM_Uart::disableInterrupt(InterruptType interrupt) const{
+void STM_Uart::disableInterrupt(InterruptType interrupt){
     (void) interrupt;
     uart->CR1 &= ~(static_cast<uint8_t>(interrupt));
 }
@@ -156,6 +161,12 @@ int STM_Uart::interrupt() {
             } else {
                 RingBuffer_PutChar(&(rxRingBuffer), data);
             }
+
+            if (isrflags & USART_SR_RXNE) {
+                uart->SR &= ~ USART_SR_RXNE;
+            }
+
+            return 1;
         }
 
         // UART in mode Transmitter -------------------------------------------------
@@ -173,13 +184,18 @@ int STM_Uart::interrupt() {
         uart->SR &= ~ USART_SR_IDLE;
     }
 
-    if (isrflags & USART_SR_RXNE) {
-        uart->SR &= ~ USART_SR_RXNE;
-    }
-
     if (isrflags & USART_SR_TXE) {
         uart->SR &= ~ USART_SR_TXE;
     }
+
+    if (isrflags & USART_SR_TC) {
+        uart->SR &= ~ USART_SR_TC;
+        if(RingBuffer_GetLen(&(txRingBuffer)) == 0 && transmitting) {
+            afterTx();
+            transmitting = false;
+        }
+    }
+
     return 1;
 }
 

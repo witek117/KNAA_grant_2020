@@ -15,6 +15,10 @@ int millis() {
     return HAL_GetTick();
 }
 
+STM32_GPIO DE = {DE_GPIO_Port, DE_Pin};
+STM_RS485 rs485 = {USART2, 115200, DE};
+
+
 STM_Uart debugUart = {USART1, 115200};
 STM_Uart tmcUart = {USART3, 115200};
 
@@ -35,8 +39,8 @@ STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
 STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
 STM32_GPIO LED3 = {LED3_GPIO_Port, LED3_Pin};
 
-STM32_GPIO STEP = {STEP_GPIO_Port, STEP_Pin};
-STM32_GPIO DIR = {DIR_GPIO_Port, DIR_Pin};
+STM32_GPIO STEP = {DIR_GPIO_Port, DIR_Pin};
+//STM32_GPIO DIR = {DIR_GPIO_Port, DIR_Pin};
 STM32_GPIO EN = {ENABLE_GPIO_Port, ENABLE_Pin};
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
@@ -74,17 +78,18 @@ extern "C"
     TMC.pwm_autoscale(true);
 
     EN.reset();
-    DIR.set();
+//    DIR.set();
+
+
 
 //    uint8_t k [] = {'0', '2','2', '4', '\n', 0};
     laser.setAddress(laser.getAddress() << 1u);
 
     debugUart.init();
-    if(laser.init()) {
-        debugUart.write((uint8_t *) "T", 1);
-    } else {
-        debugUart.write((uint8_t *) "N", 1);
-    }
+    laser.init();
+    rs485.init();
+
+    rs485.write((uint8_t *) "123456789", 9);
 
     debugUart.write_int((int)(laser.getAddress()));
 
@@ -95,20 +100,33 @@ extern "C"
 //    // increase laser pulse periods (defaults are 14 and 10 PCLKs)
     laser.setVcselPulsePeriod(VL53L0X::VcselPeriodPreRange, 18);
     laser.setVcselPulsePeriod(VL53L0X::VcselPeriodFinalRange, 14);
-
-    laser.startContinuous(100);
-    laser.readRangeContinuousMillimeters();
-
+    laser.setMeasurementTimingBudget(200000);
+    laser.startContinuous(300);
+//    laser.readRangeContinuousMillimeters();
+//    uint32_t kkk = 0;
     while (true) {
-        if(laser.haveNewData()){
+        if(laser.haveNewData()) {
+            auto data = laser.readAfterISR();
+            (void)data;
+//            debugUart.write_int(kkk++);
+        }
+        rs485.write((uint8_t *) "123456789\n", 10);
+        debugUart.write((uint8_t *) "123456789\n", 10);
+//
+        LED3.toggle();
+//        delay(0);
+//        delay(0);
+        if (!HAL_GPIO_ReadPin(GPIO1_GPIO_Port, GPIO1_Pin)) {
             auto data = laser.readAfterISR();
             debugUart.write_int(data);
         }
 
         for (uint16_t i = 500; i>0; i--) {
             STEP.set();
+//            TMC.step();
             delayMicroseconds(200);
             STEP.reset();
+//            TMC.step();
             delayMicroseconds(200);
         }
         shaft = !shaft;
