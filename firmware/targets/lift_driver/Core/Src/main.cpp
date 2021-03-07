@@ -50,8 +50,7 @@ extern I2C_HandleTypeDef hi2c1;
 STM_I2C I2C = {hi2c1};
 VL53L0X laser = {I2C };
 
-//STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
-STM32_GPIO LED1 = {LED2_GPIO_Port, LED2_Pin};
+STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
 STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
 STM32_GPIO LED3 = {LED3_GPIO_Port, LED3_Pin};
 
@@ -123,47 +122,14 @@ extern "C"
     laser.setMeasurementTimingBudget(200000);
     laser.startContinuous(300);
 
-//    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
-
-//    HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
-    HAL_TIM_Base_Start_IT(&htim3);
-    HAL_TIMEx_PWMN_Start(&htim1,TIM_CHANNEL_3);
-
-//    laser.readRangeContinuousMillimeters();
-//    uint32_t kkk = 0;
     while (true) {
         command_manager.run();
 
         if(laser.haveNewData()) {
             auto data = laser.readAfterISR();
             (void)data;
-            debugUart.write_int(data);
         }
-//        kkk++;
-//        debugUart.write_int(kkk);
-//        rs485.write_int(kkk);
-//        command_manager.print('d');
-//        rs485.write((uint8_t *) "123456789\n", 10);
-//        debugUart.write((uint8_t *) "123456789\n", 10);
-//
-//        LED3.toggle();
-//        delay(0);
-//        delay(0);
-//        if (!HAL_GPIO_ReadPin(GPIO1_GPIO_Port, GPIO1_Pin)) {
-//            auto data = laser.readAfterISR();
-//            debugUart.write_int(data);
-//        }
-//
-//        for (uint16_t i = 500; i>0; i--) {
-//            STEP.set();
-////            TMC.step();
-//            delayMicroseconds(200);
-//            STEP.reset();
-////            TMC.step();
-//            delayMicroseconds(200);
-//        }
-//        shaft = !shaft;
-//        TMC.shaft(shaft);
+
     }
 }
 
@@ -186,7 +152,19 @@ void test_LED_callback(const char* data) {
 
 void move_callback(const char* data){
     auto [move_step] = parser::get<int>(data);
-    move_steps = move_step;
+    if (move_step > 0) {
+        TMC.shaft(true);
+    } else {
+        TMC.shaft(false);
+        move_step = std::abs(move_step);
+    }
+
+    htim3.Instance->ARR = move_step;
+    htim1.Instance->CNT = 0;
+    htim3.Instance->CNT = 0;
+
+    HAL_TIM_Base_Start_IT(&htim3);
+    HAL_TIMEx_PWMN_Start(&htim1,TIM_CHANNEL_3);
 }
 extern "C"
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
