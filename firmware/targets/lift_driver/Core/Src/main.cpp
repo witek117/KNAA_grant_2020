@@ -9,17 +9,21 @@
 #include "Command.h"
 #include "command_manager.h"
 
-STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
+extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim3;
 
-void enable_interrupts() {}
-
-void disable_interrupts() {}
-
+void enable_interrupts() {__enable_irq();}
+void disable_interrupts() {__disable_irq();}
+void print_function(uint8_t data);
 void print_idn_callback(const char* data);
 void test_LED_callback(const char* data);
+int move_steps = 0;
+void move_callback(const char* data);
 
 Command idn("*IDN?", print_idn_callback);
 Command test("test", test_LED_callback);
+Command move("move", move_callback);
+CommandManager<10> command_manager(&enable_interrupts, &disable_interrupts, &print_function);
 
 void delay(uint32_t time) {
     HAL_Delay(time);
@@ -31,8 +35,6 @@ int millis() {
 
 STM32_GPIO DE = {DE_GPIO_Port, DE_Pin};
 STM_RS485 rs485 = {USART2, 115200, DE};
-
-
 STM_Uart debugUart = {USART1, 115200};
 STM_Uart tmcUart = {USART3, 115200};
 
@@ -46,15 +48,14 @@ STM_Switch tmcSwitch;
 
 extern I2C_HandleTypeDef hi2c1;
 STM_I2C I2C = {hi2c1};
-
 VL53L0X laser = {I2C };
 
-STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
-
+//STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
+STM32_GPIO LED1 = {LED2_GPIO_Port, LED2_Pin};
+STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
 STM32_GPIO LED3 = {LED3_GPIO_Port, LED3_Pin};
 
-STM32_GPIO STEP = {DIR_GPIO_Port, DIR_Pin};
-//STM32_GPIO DIR = {DIR_GPIO_Port, DIR_Pin};
+//STM32_GPIO STEP = {DIR_GPIO_Port, DIR_Pin};
 STM32_GPIO EN = {ENABLE_GPIO_Port, ENABLE_Pin};
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
@@ -80,14 +81,8 @@ void print_function(uint8_t data) {
     rs485.write(data);
 }
 
-CommandManager<10> command_manager(&enable_interrupts, &disable_interrupts, &print_function);
-
 void redirect_handler(uint8_t data) {
-    (void)data;
-//    LED3.toggle();
     command_manager.reader.putChar((char)data);
-
-//    command_manager.print('d');
 }
 
 extern "C"
@@ -109,24 +104,15 @@ extern "C"
     TMC.pwm_autoscale(true);
 
     EN.reset();
-//    DIR.set();
-
-
-
-//    uint8_t k [] = {'0', '2','2', '4', '\n', 0};
-    laser.setAddress(laser.getAddress() << 1u);
 
     debugUart.init();
-    laser.init();
 
     command_manager.addCommand(&idn);
     command_manager.addCommand(&test);
+    command_manager.addCommand(&move);
 
-
-//    rs485.write((uint8_t *) "123456789", 9);
-
-//    debugUart.write_int((int)(laser.getAddress()));
-
+    laser.setAddress(laser.getAddress() << 1u);
+    laser.init();
     laser.setTimeout(500);
 
     // lower the return signal rate limit (default is 0.25 MCPS)
@@ -136,6 +122,13 @@ extern "C"
     laser.setVcselPulsePeriod(VL53L0X::VcselPeriodFinalRange, 14);
     laser.setMeasurementTimingBudget(200000);
     laser.startContinuous(300);
+
+//    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
+
+//    HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
+    HAL_TIM_Base_Start_IT(&htim3);
+    HAL_TIMEx_PWMN_Start(&htim1,TIM_CHANNEL_3);
+
 //    laser.readRangeContinuousMillimeters();
 //    uint32_t kkk = 0;
     while (true) {
@@ -144,7 +137,7 @@ extern "C"
         if(laser.haveNewData()) {
             auto data = laser.readAfterISR();
             (void)data;
-//            debugUart.write_int(kkk++);
+            debugUart.write_int(data);
         }
 //        kkk++;
 //        debugUart.write_int(kkk);
@@ -156,21 +149,21 @@ extern "C"
 //        LED3.toggle();
 //        delay(0);
 //        delay(0);
-        if (!HAL_GPIO_ReadPin(GPIO1_GPIO_Port, GPIO1_Pin)) {
-            auto data = laser.readAfterISR();
-            debugUart.write_int(data);
-        }
-
-        for (uint16_t i = 500; i>0; i--) {
-            STEP.set();
-//            TMC.step();
-            delayMicroseconds(200);
-            STEP.reset();
-//            TMC.step();
-            delayMicroseconds(200);
-        }
-        shaft = !shaft;
-        TMC.shaft(shaft);
+//        if (!HAL_GPIO_ReadPin(GPIO1_GPIO_Port, GPIO1_Pin)) {
+//            auto data = laser.readAfterISR();
+//            debugUart.write_int(data);
+//        }
+//
+//        for (uint16_t i = 500; i>0; i--) {
+//            STEP.set();
+////            TMC.step();
+//            delayMicroseconds(200);
+//            STEP.reset();
+////            TMC.step();
+//            delayMicroseconds(200);
+//        }
+//        shaft = !shaft;
+//        TMC.shaft(shaft);
     }
 }
 
@@ -190,3 +183,16 @@ void test_LED_callback(const char* data) {
     LED2.reset(); HAL_Delay(100);
     LED3.reset();
 }
+
+void move_callback(const char* data){
+    auto [move_step] = parser::get<int>(data);
+    move_steps = move_step;
+}
+extern "C"
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+    if(htim->Instance == TIM3){ // Jeżeli przerwanie pochodzi od timera 3
+        HAL_TIM_Base_Start_IT(&htim3);
+        HAL_TIMEx_PWMN_Stop(&htim1,TIM_CHANNEL_3);
+    }
+}
+
