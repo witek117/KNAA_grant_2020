@@ -12,12 +12,11 @@
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim3;
 
-void enable_interrupts() {__enable_irq();}
-void disable_interrupts() {__disable_irq();}
+void enable_interrupts() { __enable_irq(); }
+void disable_interrupts() { __disable_irq(); }
 void print_function(uint8_t data);
 void print_idn_callback(const char* data);
 void test_LED_callback(const char* data);
-int move_steps = 0;
 void move_callback(const char* data);
 
 Command idn("*IDN?", print_idn_callback);
@@ -54,7 +53,6 @@ STM32_GPIO LED1 = {LED1_GPIO_Port, LED1_Pin};
 STM32_GPIO LED2 = {LED2_GPIO_Port, LED2_Pin};
 STM32_GPIO LED3 = {LED3_GPIO_Port, LED3_Pin};
 
-//STM32_GPIO STEP = {DIR_GPIO_Port, DIR_Pin};
 STM32_GPIO EN = {ENABLE_GPIO_Port, ENABLE_Pin};
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
@@ -68,14 +66,6 @@ TMC2209Stepper TMC = {tmcUart, tmcSwitch, 0.11, 0x00};
 
 #define STALL_VALUE     100 // [0..255]
 
-void delayMicroseconds(uint32_t time) {
-    for (volatile uint32_t i = 0; i < time; ++i) {
-        for (volatile uint32_t j = 0; j < 30; j++) {
-            ;
-        }
-    }
-}
-bool shaft = false;
 void print_function(uint8_t data) {
     rs485.write(data);
 }
@@ -124,7 +114,6 @@ extern "C"
 
     while (true) {
         command_manager.run();
-
         if(laser.haveNewData()) {
             auto data = laser.readAfterISR();
             (void)data;
@@ -137,7 +126,6 @@ void print_idn_callback(const char* data) {
     (void)data;
     command_manager.print("Lift Driver v1.0\n");
 }
-
 
 void test_LED_callback(const char* data) {
     (void)data;
@@ -168,8 +156,8 @@ void move_callback(const char* data){
 }
 extern "C"
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-    if(htim->Instance == TIM3){ // Jeżeli przerwanie pochodzi od timera 3
-        HAL_TIM_Base_Start_IT(&htim3);
+    if(htim->Instance == TIM3) {
+        HAL_TIM_Base_Stop(&htim3);
         HAL_TIMEx_PWMN_Stop(&htim1,TIM_CHANNEL_3);
     }
 }
